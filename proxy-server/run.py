@@ -6,7 +6,8 @@ import json
 urls = (
     '/init', 'init',
     '/sync', 'sync',
-    '/crossdomain.xml', 'crossdomain'
+    '/crossdomain.xml', 'crossdomain',
+    '/update', 'update'
 )
 
 outputNames = []
@@ -21,6 +22,7 @@ inputData = {}
 
 class init:
   def POST(self):
+    global outputNames, outputTypes, inputNames, inputTypes
     outputNames = json.loads(web.input().outputNames)
     outputTypes = json.loads(web.input().outputTypes)
     inputNames = json.loads(web.input().outputNames)
@@ -30,9 +32,17 @@ class init:
 
 class sync:
   def POST(self):
+    global outputData
     outputData = json.loads(web.input().outputData)
+    print inputData
     return json.dumps(inputData)
 
+
+class update:
+  def POST(self):
+    global inputData
+    inputData = json.loads(web.input().inputData)
+    return json.dumps(outputData)
 
 
 class crossdomain:
