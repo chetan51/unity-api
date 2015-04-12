@@ -34,7 +34,6 @@ class sync:
   def POST(self):
     global outputData
     outputData = json.loads(web.input().outputData)
-    print inputData
     return json.dumps(inputData)
 
 
