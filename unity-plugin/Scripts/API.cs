@@ -96,7 +96,7 @@ public class API : MonoBehaviour {
 		StartCoroutine ("SendInit");
 	}
 
-	void Update () {
+	void LateUpdate () {
 		if (Time.time - _lastSyncTime < 1 / updateRate) {
 			return;
 		}
