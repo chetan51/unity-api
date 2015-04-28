@@ -16,6 +16,7 @@ public class API : MonoBehaviour {
 	public string[] inputTypes;
 	public bool blockOnResponse = false;
 	public float updateRate = 30;  // hertz
+	public float runSpeed = 1.0f;
 	public string serverURL = "http://localhost:8080";
 
 	private bool _isWaitingForResponse;
@@ -24,14 +25,14 @@ public class API : MonoBehaviour {
 	private Dictionary<string, object> _inputData;
 
 	private static API _instance;
-	
+
 	public static API instance {
 		get {
 			if(_instance == null) {
 				_instance = GameObject.FindObjectOfType<API>();
 				DontDestroyOnLoad(_instance.gameObject);
 			}
-			
+
 			return _instance;
 		}
 	}
@@ -64,7 +65,7 @@ public class API : MonoBehaviour {
 		WWW www = new WWW (url, form);
 		yield return www;
 	}
-	
+
 	IEnumerator Sync() {
 		WWWForm form = new WWWForm ();
 		form.AddField ("outputData", JsonWriter.Serialize(_outputData));
@@ -96,6 +97,10 @@ public class API : MonoBehaviour {
 		StartCoroutine ("SendInit");
 	}
 
+	void Update() {
+		Time.timeScale = runSpeed;
+	}
+
 	void LateUpdate () {
 		if (Time.time - _lastSyncTime < 1 / updateRate) {
 			return;
@@ -104,7 +109,7 @@ public class API : MonoBehaviour {
 		if (blockOnResponse && _isWaitingForResponse) {
 			return;
 		}
-		
+
 		_lastSyncTime = Time.time;
 		StartCoroutine ("Sync");
 		_isWaitingForResponse = true;
