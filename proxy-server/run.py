@@ -18,6 +18,8 @@ inputTypes = []
 outputData = {}
 inputData = {}
 
+timestep = 0
+
 
 
 class init:
@@ -32,15 +34,18 @@ class init:
 
 class sync:
   def POST(self):
-    global outputData
+    global outputData, timestep
     outputData = json.loads(web.input().outputData)
+    # inputData["position"] = outputData["position"]
+    timestep += 1
     return json.dumps(inputData)
 
 
 class update:
   def POST(self):
-    global inputData
+    global inputData, timestep
     inputData = json.loads(web.input().inputData)
+    outputData["timestep"] = timestep
     return json.dumps(outputData)
 
 
