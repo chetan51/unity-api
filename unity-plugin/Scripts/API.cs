@@ -118,4 +118,34 @@ public class API : MonoBehaviour {
 			Time.timeScale = 0.0f;
 		}
 	}
+
+
+	/* Persistent Singleton */
+
+	private static API _instance;
+
+	public static API instance
+	{
+		get {
+			if (_instance == null) {
+				_instance = GameObject.FindObjectOfType<API>();
+				DontDestroyOnLoad(_instance.gameObject);
+			}
+
+			return _instance;
+		}
+	}
+
+	void Awake()
+	{
+		if (_instance == null) {
+			_instance = this;
+			DontDestroyOnLoad(this);
+		}
+		else {
+			if(this != _instance)
+			Destroy(this.gameObject);
+		}
+	}
+
 }
