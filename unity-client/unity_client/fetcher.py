@@ -14,7 +14,7 @@ class Fetcher(object):
     self.lastPing = time.time()
 
     self.timestep = -1
-    self.skippedTimestep = False
+    self.skippedTimesteps = 0
 
 
   def sync(self):
@@ -31,7 +31,7 @@ class Fetcher(object):
     if newTimestep == self.timestep:
       return None
 
-    self.skippedTimestep = newTimestep > self.timestep + 1
+    self.skippedTimesteps = newTimestep - (self.timestep + 1)
 
     self.lastPing = time.time()
     self.timestep = newTimestep
