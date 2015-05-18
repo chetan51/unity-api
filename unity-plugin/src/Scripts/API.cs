@@ -24,19 +24,6 @@ public class API : MonoBehaviour {
 	private Dictionary<string, object> _outputData;
 	private Dictionary<string, object> _inputData;
 
-	private static API _instance;
-
-	public static API instance {
-		get {
-			if(_instance == null) {
-				_instance = GameObject.FindObjectOfType<API>();
-				DontDestroyOnLoad(_instance.gameObject);
-			}
-
-			return _instance;
-		}
-	}
-
 	public void SetOutput(string name, object data) {
 		_outputData [name] = data;
 	}
@@ -82,19 +69,9 @@ public class API : MonoBehaviour {
 
 	/* Events */
 
-	void Awake() {
-		if(_instance == null) {
-			_instance = this;
-			DontDestroyOnLoad(this);
-		}
-		else {
-			if(this != _instance) {
-				Destroy(this.gameObject);
-			}
-		}
-
-		Clear ();
-		StartCoroutine ("SendInit");
+	void Start() {
+		Clear();
+		StartCoroutine("SendInit");
 	}
 
 	void Update() {
