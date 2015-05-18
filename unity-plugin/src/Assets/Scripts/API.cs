@@ -69,6 +69,11 @@ public class API : MonoBehaviour {
 
 	/* Events */
 
+	void Start() {
+		Clear();
+		StartCoroutine("SendInit");
+	}
+
 	void OnLevelWasLoaded(int level) {
 		Clear();
 		StartCoroutine("SendInit");
