@@ -7,7 +7,7 @@ Get your Unity application to communicate with a Python client.
 ## Install Unity plugin
 
 1. In your Unity project, import `unity-plugin/API.unitypackage`.
-2. Drag the Prefab from `Assets/Resources/API` into the Hierarchy.
+2. Drag the prefab from `Assets/Resources/API` into the Hierarchy.
 
 ## Install Python client
 
@@ -51,3 +51,9 @@ You can write to the `inputData` dictionary on your `Fetcher` instance. For exam
 ## Receiving data into your Python client from Unity
 
 `fetcher.sync()` returns an `outputData` dictionary that contains data sent out from Unity.
+
+# Parameters
+
+Some useful parameters you can adjust:
+
+- On the `API` prefab, you can adjust `Update Rate` (how quickly Unity sends data to the proxy server) and `Run Speed` (the rate at which time passes).
