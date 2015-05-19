@@ -50,12 +50,15 @@ public class API : MonoBehaviour {
 		string url = "http://localhost:8080/sync";
 		WWW www = new WWW(url, form);
 		yield return www;
-		_inputData = JsonReader.Deserialize<Dictionary<string, object>>(www.text);
 
 		_isWaitingForResponse = false;
 		if (blockOnResponse) {
 			Time.timeScale = 1.0f;
 		}
+
+		if (www.error != null) return false;
+
+		_inputData = JsonReader.Deserialize<Dictionary<string, object>>(www.text);
 	}
 
 	/* Events */
