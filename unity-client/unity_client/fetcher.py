@@ -22,6 +22,7 @@ class Fetcher(object):
     data = urllib.urlencode(values)
     req = urllib2.Request(self.url, data)
     response = urllib2.urlopen(req)
+
     outputData = json.loads(response.read())
 
     newTimestep = self.timestep
@@ -35,5 +36,6 @@ class Fetcher(object):
 
     self.lastPing = time.time()
     self.timestep = newTimestep
+    self.inputData = {}
 
     return outputData
