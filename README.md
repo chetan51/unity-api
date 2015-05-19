@@ -56,4 +56,7 @@ You can write to the `inputData` dictionary on your `Fetcher` instance. For exam
 
 Some useful parameters you can adjust:
 
-- On the `API` prefab, you can adjust `Update Rate` (how quickly Unity sends data to the proxy server) and `Run Speed` (the rate at which time passes).
+- On the `API` prefab:
+    - `Update Rate` - how quickly Unity sends data to the proxy server
+    - `Run Speed` - the rate at which time passes in Unity
+    - `Server URL` - the location of the proxy server (so you can run your application remotely)
