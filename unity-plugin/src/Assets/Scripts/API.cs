@@ -10,10 +10,6 @@ public class DataDefinition {
 
 public class API : MonoBehaviour {
 
-	public string[] outputNames = {"position"};
-	public string[] outputTypes = {"float"};
-	public string[] inputNames;
-	public string[] inputTypes;
 	public bool blockOnResponse = false;
 	public float updateRate = 30;  // hertz
 	public float runSpeed = 1.0f;
@@ -42,22 +38,17 @@ public class API : MonoBehaviour {
 
 	/* Data transfer */
 
-	IEnumerator SendInit() {
-		WWWForm form = new WWWForm ();
-		form.AddField ("outputNames", JsonWriter.Serialize(outputNames));
-		form.AddField ("outputTypes", JsonWriter.Serialize(outputTypes));
-		form.AddField ("inputNames", JsonWriter.Serialize(inputNames));
-		form.AddField ("inputTypes", JsonWriter.Serialize(inputTypes));
-		string url = "http://localhost:8080/init";
-		WWW www = new WWW (url, form);
+	IEnumerator SendReset() {
+		string url = "http://localhost:8080/reset";
+		WWW www = new WWW(url);
 		yield return www;
 	}
 
 	IEnumerator Sync() {
-		WWWForm form = new WWWForm ();
+		WWWForm form = new WWWForm();
 		form.AddField ("outputData", JsonWriter.Serialize(_outputData));
 		string url = "http://localhost:8080/sync";
-		WWW www = new WWW (url, form);
+		WWW www = new WWW(url, form);
 		yield return www;
 		_inputData = JsonReader.Deserialize<Dictionary<string, object>>(www.text);
 
@@ -71,12 +62,12 @@ public class API : MonoBehaviour {
 
 	void Start() {
 		Clear();
-		StartCoroutine("SendInit");
+		StartCoroutine("SendReset");
 	}
 
 	void OnLevelWasLoaded(int level) {
 		Clear();
-		StartCoroutine("SendInit");
+		StartCoroutine("SendReset");
 	}
 
 	void Update() {
