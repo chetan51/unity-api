@@ -60,3 +60,12 @@ Some useful parameters you can adjust:
     - `Update Rate` - how quickly Unity sends data to the proxy server
     - `Run Speed` - the rate at which time passes in Unity
     - `Server URL` - the location of the proxy server (so you can run your application remotely)
+
+# Contributors
+
+## Updating the `API.unitypackage` file after making changes
+
+1. Open `unity-plugin/src` as a project in Unity.
+2. In the menu bar, select `Assets > Export Package`.
+3. Make sure everything is selected, and click `Export`.
+4. Save to replace the `API.unitypackage` file.
