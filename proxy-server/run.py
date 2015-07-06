@@ -4,7 +4,6 @@ import json
 
 
 urls = (
-    '/reset', 'reset',
     '/sync', 'sync',
     '/crossdomain.xml', 'crossdomain',
     '/update', 'update'
@@ -14,26 +13,15 @@ outputData = {}
 inputData = {}
 
 timestep = 0
-resetFlag = False
-
-
-
-class reset:
-  def GET(self):
-    global resetFlag
-    resetFlag = True
-    return "Confirmed"
 
 
 
 class sync:
   def POST(self):
-    global outputData, timestep, resetFlag
+    global outputData, timestep
     outputData = json.loads(web.input().outputData)
     outputData["timestep"] = timestep
-    outputData["reset"] = resetFlag
     timestep += 1
-    resetFlag = False
     return json.dumps(inputData)
 
 
